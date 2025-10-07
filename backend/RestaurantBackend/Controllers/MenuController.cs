@@ -55,29 +55,56 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpPut("{menuItemId}")]
-        public IActionResult UpdateMenuItem(string menuItemId, [FromBody] MenuItem updatedItem)
+        public async Task<IActionResult> UpdateMenuItem(string menuItemId, [FromBody] MenuItem updatedItem)
         {
-            var restaurant = _context.Restaurants.Find(r => r.Menu.Any(m => m.Id == menuItemId)).FirstOrDefault();
+            var restaurantFilter = Builders<Restaurant>.Filter.ElemMatch(r => r.Menu, m => m.Id == menuItemId);
+            var restaurant = await _context.Restaurants.Find(restaurantFilter).FirstOrDefaultAsync();
             if (restaurant == null) return NotFound("Menu item not found.");
 
-            var index = restaurant.Menu.FindIndex(m => m.Id == menuItemId);
-            updatedItem.Id = menuItemId;
-            restaurant.Menu[index] = updatedItem;
+            var existingMenuItem = await _context.MenuItems.Find(mi => mi.Id == menuItemId).FirstOrDefaultAsync();
+            if (existingMenuItem == null)
+                return NotFound("Menu item not found in MenuItems collection.");
 
-            _context.Restaurants.ReplaceOne(r => r.Id == restaurant.Id, restaurant);
+            updatedItem.Id = existingMenuItem.Id;
+            updatedItem.restaurantId = restaurant.Id;
+
+            await _context.MenuItems.ReplaceOneAsync(mi => mi.Id == menuItemId, updatedItem);
+
+            var update = Builders<Restaurant>.Update.Set("Menu.$", updatedItem);
+            await _context.Restaurants.UpdateOneAsync(restaurantFilter, update);
+
             return Ok(updatedItem);
         }
 
         [HttpDelete("{menuItemId}")]
-        public IActionResult DeleteMenuItem(string menuItemId)
+        public async Task<IActionResult> DeleteMenuItem(string restaurantId, string menuItemId)
         {
-            var restaurant = _context.Restaurants.Find(r => r.Menu.Any(m => m.Id == menuItemId)).FirstOrDefault();
-            if (restaurant == null) return NotFound("Menu item not found.");
+            var restaurant = await _context.Restaurants.Find(r => r.Id == restaurantId).FirstOrDefaultAsync();
+            if (restaurant == null || restaurant.Menu.All(m => m.Id != menuItemId))
+                return NotFound("Menu item not found in the specified restaurant.");
 
-            restaurant.Menu.RemoveAll(m => m.Id == menuItemId);
-            _context.Restaurants.ReplaceOne(r => r.Id == restaurant.Id, restaurant);
+            using (var session = await _context.Client.StartSessionAsync())
+            {
+                session.StartTransaction();
+                try
+                {
+                    var update = Builders<Restaurant>.Update.PullFilter(r => r.Menu, m => m.Id == menuItemId);
+                    await _context.Restaurants.UpdateOneAsync(session, r => r.Id == restaurantId, update);
 
-            return Ok("Menu item deleted successfully.");
+                    var menuItemFilter = Builders<MenuItem>.Filter.Eq(mi => mi.Id, menuItemId);
+                    await _context.MenuItems.DeleteOneAsync(session, menuItemFilter);
+
+                    await session.CommitTransactionAsync();
+                }
+                catch (Exception)
+                {
+                    await session.AbortTransactionAsync();
+                    throw;
+                }
+            }
+
+            return Ok("Menu item deleted successfully from all collections.");
+            
         }
     }
 }

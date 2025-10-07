@@ -7,13 +7,15 @@ namespace RestaurantBackend.Data
     public class MongoContext
     {
         private readonly IMongoDatabase _database;
+        private readonly IMongoClient _client;
 
         public MongoContext(IOptions<MongoSettings> mongosettings)
         {
-            var client = new MongoClient(mongosettings.Value.ConnectionString);
-            _database = client.GetDatabase(mongosettings.Value.DatabaseName);
+             _client = new MongoClient(mongosettings.Value.ConnectionString);
+            _database = _client.GetDatabase(mongosettings.Value.DatabaseName);
         }
 
+        public IMongoClient Client => _client;
         public IMongoCollection<Restaurant> Restaurants => _database.GetCollection<Restaurant>("restaurants");
         public IMongoCollection<MenuItem> MenuItems => _database.GetCollection<MenuItem>("MenuItems");
         public IMongoCollection<Customer> Customers => _database.GetCollection<Customer>("Customers");

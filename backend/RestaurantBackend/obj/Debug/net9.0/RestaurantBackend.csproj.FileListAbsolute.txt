@@ -39,3 +39,4 @@ C:\Users\jolly\restaurant-app\backend\RestaurantBackend\bin\Debug\net9.0\Swashbu
 C:\Users\jolly\restaurant-app\backend\RestaurantBackend\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\jolly\restaurant-app\backend\RestaurantBackend\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\jolly\restaurant-app\backend\RestaurantBackend\bin\Debug\net9.0\ZstdSharp.dll
+C:\Users\jolly\restaurant-app\backend\Restaurantbackend\obj\Debug\net9.0\RestaurantBackend.sourcelink.json
