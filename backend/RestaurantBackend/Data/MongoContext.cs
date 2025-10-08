@@ -11,7 +11,7 @@ namespace RestaurantBackend.Data
 
         public MongoContext(IOptions<MongoSettings> mongosettings)
         {
-             _client = new MongoClient(mongosettings.Value.ConnectionString);
+            _client = new MongoClient(mongosettings.Value.ConnectionString);
             _database = _client.GetDatabase(mongosettings.Value.DatabaseName);
         }
 
@@ -20,5 +20,7 @@ namespace RestaurantBackend.Data
         public IMongoCollection<MenuItem> MenuItems => _database.GetCollection<MenuItem>("MenuItems");
         public IMongoCollection<Customer> Customers => _database.GetCollection<Customer>("Customers");
         public IMongoCollection<Order> Orders => _database.GetCollection<Order>("Orders");
+
+        public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
     }
 }
