@@ -48,3 +48,4 @@ C:\Users\jolly\restaurant-app\backend\Restaurantbackend\bin\Debug\net9.0\Microso
 C:\Users\jolly\restaurant-app\backend\Restaurantbackend\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\jolly\restaurant-app\backend\Restaurantbackend\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\jolly\restaurant-app\backend\Restaurantbackend\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\jolly\restaurant-app\backend\Restaurantbackend\bin\Debug\net9.0\BCrypt.Net-Next.dll

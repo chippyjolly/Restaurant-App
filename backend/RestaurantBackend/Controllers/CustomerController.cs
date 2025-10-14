@@ -3,10 +3,11 @@ using MongoDB.Driver;
 using RestaurantBackend.Models;
 using RestaurantBackend.Data;
 using System.Text.RegularExpressions;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantBackend.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CustomerController : ControllerBase
