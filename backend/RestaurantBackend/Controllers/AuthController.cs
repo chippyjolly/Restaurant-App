@@ -43,6 +43,16 @@ namespace RestaurantBackend.Controllers
 
             _context.Users.InsertOne(user);
 
+            if(user.Role.Equals("Customer",StringComparison.OrdinalIgnoreCase))
+            {
+                var customer = new Customer
+                {
+                    Name = user.Username,
+                    Email = user.Email
+                };
+                _context.Customers.InsertOne(customer);
+            }
+
             return Ok(new { message = "User registered successfully" });
         }
 
