@@ -2,6 +2,10 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantBackend.Data;
 using RestaurantBackend.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
+using System.Security.Claims;
+
 
 namespace RestaurantBackend.Controllers
 {
@@ -24,38 +28,68 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.RestaurantOwner)]
         public IActionResult Create(Restaurant restaurant)
         {
+            var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (ownerId == null)
+                return Unauthorized();
+
+            restaurant.OwnerId = ownerId;
+
             _context.Restaurants.InsertOne(restaurant);
             return CreatedAtAction(nameof(GetAll), new { id = restaurant.Id }, restaurant);
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = UserRoles.RestaurantOwner)]
         public async Task<IActionResult> UpdateRestaurant(string id, [FromBody] Restaurant UpdatedRestaurant)
         {
             if (UpdatedRestaurant == null || string.IsNullOrEmpty(UpdatedRestaurant.Name))
                 return BadRequest(new { message = "Restaurant name is required" });
 
-
+            var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var restaurant = await _context.Restaurants.Find(r => r.Id == id).FirstOrDefaultAsync();
 
             if (restaurant == null)
                 return NotFound(new { message = "Restaurant not found" });
 
+            if (restaurant.OwnerId != ownerId)
+                return Forbid();
+
 
             UpdatedRestaurant.Id = restaurant.Id;
+            UpdatedRestaurant.OwnerId = ownerId;
+
             await _context.Restaurants.ReplaceOneAsync(r => r.Id == id, UpdatedRestaurant);
             return Ok(UpdatedRestaurant);
 
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = $"{UserRoles.RestaurantOwner},{UserRoles.Admin}")]
+
         public async Task<IActionResult> DeleteRestaurant(string id)
         {
+
+            var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var restaurant = await _context.Restaurants.Find(r => r.Id == id).FirstOrDefaultAsync();
+
+            if (restaurant == null)
+                return NotFound(new { message = "Restaurant not found" });
+
+            if (!User.IsInRole(UserRoles.Admin) && restaurant.OwnerId != ownerId)
+                return Forbid();
+
+
+
             var result = await _context.Restaurants.DeleteOneAsync(r => r.Id == id);
 
             if (result.DeletedCount == 0)
                 return NotFound(new { message = "Restaurant not found" });
+
+
+
 
             return NoContent();
 

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using RestaurantBackend.Models;
 using RestaurantBackend.Data;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace RestaurantBackend.Controllers
 {
@@ -17,8 +19,21 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles =UserRoles.Customer)]
         public IActionResult CreateOrder(Order order)
         {
+
+            var customerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            if (customerId == null)
+            {
+                return Unauthorized();
+            }
+
+            order.CustomerId = customerId;
+
+
+
             if (order.MenuItemIds == null || order.MenuItemIds.Count == 0)
                 return BadRequest("At least one menu item is required.");
 
@@ -29,9 +44,19 @@ namespace RestaurantBackend.Controllers
             return Ok(order);
         }
 
-        [HttpGet("byCustomer/{customerId}")]
-        public IActionResult GetOrdersByCustomer(string customerId)
+        [HttpGet("byCustomer")]
+        [Authorize(Roles =UserRoles.Customer)]
+        public IActionResult GetOrdersByCustomer()
         {
+
+            var customerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if(customerId == null)
+            {
+                return Unauthorized();
+            }
+
+
+
             var orders = _context.Orders.Find(o => o.CustomerId == customerId).ToList();
             return Ok(orders);
         }
