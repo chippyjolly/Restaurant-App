@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj": {}
+    "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj": {
+    "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj",
+        "projectUniqueName": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj",
         "projectName": "RestaurantBackend",
-        "projectPath": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj",
+        "projectPath": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj",
         "packagesPath": "C:\\Users\\jolly\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\obj\\",
+        "outputPath": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\jolly\\AppData\\Roaming\\NuGet\\NuGet.Config"
