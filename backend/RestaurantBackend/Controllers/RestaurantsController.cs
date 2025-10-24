@@ -21,10 +21,26 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        [Authorize]
+        public async Task<IActionResult> GetAll()
         {
-            var restaurants = _context.Restaurants.Find(r => true).ToList();
-            return Ok(restaurants);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (userRole == UserRoles.RestaurantOwner)
+            {
+                var restaurants = await _context.Restaurants.Find(r => r.OwnerId == userId).ToListAsync();
+                return Ok(restaurants);
+            }
+            else if (userRole == UserRoles.Customer || userRole == UserRoles.Admin)
+            {
+                var restaurants = await _context.Restaurants.Find(_ => true).ToListAsync();
+                return Ok(restaurants);
+            }
+            else
+            {
+                return Forbid();
+            }
         }
 
         [HttpPost]
