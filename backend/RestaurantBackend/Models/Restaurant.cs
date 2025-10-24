@@ -22,7 +22,7 @@ namespace RestaurantBackend.Models
         public List<MenuItem> Menu { get; set; } = new List<MenuItem>();
 
         [BsonElement("ownerId")]
-        public string OwnerId { get; set; } = null!;
+        public string? OwnerId { get; set; }
 
     }
 }

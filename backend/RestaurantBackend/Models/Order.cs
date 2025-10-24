@@ -11,7 +11,7 @@ namespace RestaurantBackend.Models
 
         [BsonElement("customerId")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string CustomerId { get; set; } = null!;
+        public string? CustomerId { get; set; }
 
         [BsonElement("restaurantId")]
         [BsonRepresentation(BsonType.ObjectId)]
