@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 
 
+
 namespace RestaurantBackend.Controllers
 {
     [ApiController]
@@ -38,7 +39,7 @@ namespace RestaurantBackend.Controllers
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = passwordHash,
-                Role = dto.Role
+                Role = "customer"
             };
 
             _context.Users.InsertOne(user);
@@ -64,7 +65,7 @@ namespace RestaurantBackend.Controllers
                 return Unauthorized("Invalid email or password.");
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]);
+            var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -86,7 +87,7 @@ namespace RestaurantBackend.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new { token = tokenString });
+            return Ok(new { token = tokenString, role =user.Role });
         }
     }
 }

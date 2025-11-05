@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj": {}
+    "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj": {
+    "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj",
+        "projectUniqueName": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj",
         "projectName": "RestaurantBackend",
-        "projectPath": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\RestaurantBackend.csproj",
+        "projectPath": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\RestaurantBackend.csproj",
         "packagesPath": "C:\\Users\\jolly\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jolly\\restaurant-app\\backend\\Restaurantbackend\\obj\\",
+        "outputPath": "C:\\Users\\jolly\\restaurant-app\\backend\\RestaurantBackend\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jolly\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\jolly\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -51,6 +57,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.3.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -84,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

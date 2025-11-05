@@ -5,5 +5,6 @@ namespace RestaurantBackend.Models
         public const string Admin = "Admin";
         public const string Customer = "Customer";
         public const string RestaurantOwner = "RestaurantOwner";
+        public const string Partner = "Partner";
     }
 }

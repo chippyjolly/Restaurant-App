@@ -1,0 +1,110 @@
+.restaurant-owner-view {
+  padding: 20px;
+  position: relative; /* Needed for fixed button positioning */
+  min-height: 100vh; /* Ensure view takes full height */
+}
+
+.rov-navbar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.rov-restaurant-image-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.rov-menu-items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding-bottom: 80px; /* Add padding to avoid overlap with fixed button */
+}
+
+.rov-menu-item-card {
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.rov-menu-item-card:hover {
+  transform: translateY(-5px);
+}
+
+.rov-menu-item-image-placeholder {
+  width: 100%;
+  height: 150px;
+  background-color: #f0f0f0;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.rov-menu-item-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.rov-card-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.rov-edit-btn, .rov-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.rov-add-menu-button {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  border-radius: 25px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+.rov-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.rov-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}

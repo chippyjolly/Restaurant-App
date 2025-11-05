@@ -15,8 +15,14 @@ namespace RestaurantBackend.Models
         [BsonElement("price")]
         public decimal Price { get; set; }
 
+        [BsonElement("imageUrl")]
+        public string ImageUrl { get; set; } = null!;
+
+        [BsonElement("description")]
+        public string Description { get; set; } = null!;
+
         [BsonElement("restaurantId")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? restaurantId { get; set; }
+        public string? RestaurantId { get; set; }
     }
 }
