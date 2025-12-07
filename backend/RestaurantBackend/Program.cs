@@ -17,16 +17,31 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // ✅ 2️⃣ Add CORS configuration
+// builder.Services.AddCors(options =>
+// {
+//     options.AddPolicy("AllowReactApp", policy =>
+//     {
+//         policy.WithOrigins("http://localhost:5173")  // <-- React app URL
+//               .AllowAnyHeader()
+//               .AllowAnyMethod()
+//               .AllowCredentials(); // optional (for cookies/tokens)
+//     });
+// });
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")  // <-- React app URL
-              .AllowAnyHeader()
-              .AllowAnyMethod()
-              .AllowCredentials(); // optional (for cookies/tokens)
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
     });
 });
+
+
+
 
 // ✅ 3️⃣ Add Authentication (JWT)
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -57,7 +72,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 // ✅ 4️⃣ Enable CORS before Authentication/Authorization
 app.UseCors("AllowReactApp");

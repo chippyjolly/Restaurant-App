@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.edit-item-container {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  color: #ffb347;
+  padding: 20px;
+}
+
+.edit-item-card {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 16px;
+  width: 400px;
+  box-shadow: 0 0 20px rgba(255, 183, 71, 0.1);
+  text-align: center;
+}
+
+.edit-item-card h2 {
+  margin-bottom: 25px;
+  color: #ffc766;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.edit-item-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  text-align: left;
+  font-weight: 500;
+  color: #ffc766;
+}
+
+input,
+textarea {
+  background-color: #0f0f0f;
+  border: 1px solid #333;
+  color: #e0e0e0;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #ffc766;
+  box-shadow: 0 0 5px rgba(255, 199, 102, 0.3);
+}
+
+textarea {
+  min-height: 80px;
+  resize: none;
+}
+
+.btn {
+  background: linear-gradient(90deg, #ffb347, #ffc766);
+  color: #0f0f0f;
+  font-weight: 600;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  background: linear-gradient(90deg, #ffc766, #ffb347);
+}
+
+.back-btn {
+  margin-top: 15px;
+  background: transparent;
+  color: #ffc766;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+  color: #ffb347;
+}
+
+.edit-item-loading {
+  color: #ffc766;
+  text-align: center;
+  font-size: 1.3rem;
+  margin-top: 50px;
+}

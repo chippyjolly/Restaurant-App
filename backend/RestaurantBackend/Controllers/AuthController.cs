@@ -87,7 +87,7 @@ namespace RestaurantBackend.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new { token = tokenString, role =user.Role });
+            return Ok(new { token = tokenString, role =user.Role, userId = user.Id, userName = user.Username });
         }
     }
 }

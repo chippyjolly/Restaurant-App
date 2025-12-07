@@ -28,20 +28,26 @@ function Login() {
       });
 
       if (response.status === 200) {
-        alert("Login successful!");
         const token = response.data.token;
         const userRole = response.data.role;
+        const userId = response.data.userId;
+        const userName = response.data.userName;
+
         console.log("JWT Token:", token);
+        console.log("User ID:", userId);
+
         localStorage.setItem("token", token);
+        localStorage.setItem("customerId", userId);
+        localStorage.setItem("customerName", userName);
+
 
         const decodedToken = jwtDecode(token);
-      
-        console.log(userRole)
+        console.log(userRole);
 
         if (userRole === "Partner") {
-          navigate("/restaurant-owner-view");
+          navigate("/restaurant-owner");
         } else {
-          navigate("/"); // or to a customer view
+          navigate("/customer");
         }
 
         setForm({ email: "", password: "" });
@@ -59,8 +65,8 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="login-title">Login</h2>
+        <form onSubmit={handleSubmit} className="login-form">
           <label>Email</label>
           <input
             type="text"
@@ -79,10 +85,10 @@ function Login() {
             placeholder="Enter your password"
           />
 
-          <button type="submit" className="btn">Login</button>
+          <button type="submit" className="btn-login">Login</button>
         </form>
 
-        <button className="back-btn" onClick={() => navigate("/")}>
+        <button className="btn-back" onClick={() => navigate("/")}>
           Back to Home
         </button>
       </div>

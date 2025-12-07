@@ -1,42 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
-.register-container {
-  height: 100vh;
+.add-menu-container {
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffc766;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0f0f0f;
   font-family: 'Poppins', sans-serif;
-  color: #ffc766;
+  padding: 20px;
 }
 
-.register-card {
+.add-menu-card {
   background: rgba(25, 25, 25, 0.95);
   border: 1px solid #ffc766;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(255, 199, 102, 0.2);
   padding: 40px 50px;
-  width: 380px;
+  width: 400px;
   text-align: center;
   animation: fadeIn 0.6s ease-in-out;
 }
 
-.register-title {
-  font-size: 1.8rem;
-  font-weight: 600;
+.add-menu-title {
   color: #ffc766;
   margin-bottom: 25px;
+  font-weight: 600;
+  font-size: 1.8rem;
 }
 
-.register-form label {
-  display: block;
-  text-align: left;
-  font-weight: 500;
-  color: #ffc766;
-  margin-bottom: 8px;
-}
-
-.register-form input {
+.add-menu-form input,
+.add-menu-form textarea {
   width: 100%;
   background-color: transparent;
   border: 1px solid #ffc766;
@@ -49,16 +43,27 @@
   transition: all 0.3s ease;
 }
 
-.register-form input:focus {
+.add-menu-form input:focus,
+.add-menu-form textarea:focus {
   border-color: #ffb347;
   box-shadow: 0 0 8px rgba(255, 179, 71, 0.5);
 }
 
-.btn-register {
-  width: 100%;
-  padding: 12px;
-  background-color: #ffc766;
-  color: #0f0f0f;
+.add-menu-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.add-menu-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.btn-add,
+.btn-cancel {
+  flex: 1;
+  padding: 12px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -67,24 +72,23 @@
   transition: all 0.3s ease;
 }
 
-.btn-register:hover {
+.btn-add {
+  background-color: #ffc766;
+  color: #0f0f0f;
+}
+
+.btn-add:hover {
   background-color: #ffb347;
   box-shadow: 0 0 10px rgba(255, 199, 102, 0.5);
 }
 
-.btn-back {
-  margin-top: 15px;
-  background: transparent;
+.btn-cancel {
+  background-color: transparent;
   color: #ffc766;
   border: 1px solid #ffc766;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
 }
 
-.btn-back:hover {
+.btn-cancel:hover {
   background-color: #ff4d4d;
   border-color: #ff4d4d;
   color: #fff;

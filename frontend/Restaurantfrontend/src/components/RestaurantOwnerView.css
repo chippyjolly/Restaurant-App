@@ -1,9 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 .restaurant-owner-view {
   padding: 20px;
-  position: relative; /* Needed for fixed button positioning */
-  min-height: 100vh; /* Ensure view takes full height */
+  position: relative;
+  min-height: 100vh;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
+/* Navbar */
 .rov-navbar {
   display: flex;
   justify-content: flex-end;
@@ -11,100 +18,146 @@
   margin-bottom: 20px;
 }
 
+.rov-navbar button {
+  padding: 8px 16px;
+  border: none;
+  background-color: #ffc766;
+  color: #0f0f0f;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.rov-navbar button:hover {
+  background-color: #ffb347;
+}
+
+/* Restaurant image placeholder */
 .rov-restaurant-image-placeholder {
   width: 100%;
-  height: 200px;
-  background-color: #f0f0f0;
+  height: 220px;
+  background-color: #1a1a1a;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  color: #ffc766;
+  overflow: hidden;
 }
 
+.rov-restaurant-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Menu grid layout */
 .rov-menu-items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
-  padding-bottom: 80px; /* Add padding to avoid overlap with fixed button */
+  padding-bottom: 100px;
 }
 
+/* Each menu item card */
 .rov-menu-item-card {
   position: relative;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 16px;
+  background-color: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 15px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 199, 102, 0.05);
 }
 
 .rov-menu-item-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(255, 199, 102, 0.15);
 }
 
+/* Menu item image */
 .rov-menu-item-image-placeholder {
   width: 100%;
-  height: 150px;
-  background-color: #f0f0f0;
-  margin-bottom: 10px;
-  border-radius: 4px;
+  height: 160px;
+  background-color: #0f0f0f;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .rov-menu-item-image-placeholder img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
+/* Top-right corner edit/delete buttons */
 .rov-card-buttons {
   position: absolute;
   top: 10px;
   right: 10px;
   display: flex;
-  gap: 5px;
+  gap: 8px;
+  z-index: 2;
 }
 
-.rov-edit-btn, .rov-delete-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.rov-add-menu-button {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 12px 24px;
-  border-radius: 25px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
+.rov-edit-btn,
+.rov-delete-btn {
+  background-color: rgba(0, 0, 0, 0.8); /* dark background behind icons */
+  border: 1px solid #ffc766;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  z-index: 1000;
-}
-
-.rov-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffc766;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1001;
+  justify-content: center;
+  transition: all 0.3s ease;
+  
 }
 
-.rov-modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
+.rov-edit-btn:hover {
+  background-color: #ffc766;
+  color: #0f0f0f;
+  border-color: #ffc766;
+}
+
+.rov-delete-btn:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+  border-color: #ff4d4d;
+}
+
+
+/* Add menu button */
+.rov-add-menu-button {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  background-color: #ffc766;
+  color: #0f0f0f;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(255, 199, 102, 0.25);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.rov-add-menu-button:hover {
+  background-color: #ffb347;
+  box-shadow: 0 6px 16px rgba(255, 199, 102, 0.4);
 }

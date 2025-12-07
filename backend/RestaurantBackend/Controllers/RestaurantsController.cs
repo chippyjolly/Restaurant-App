@@ -27,7 +27,8 @@ namespace RestaurantBackend.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
 
-            if (userRole == UserRoles.RestaurantOwner)
+
+            if (userRole == UserRoles.Partner)
             {
                 var restaurants = await _context.Restaurants.Find(r => r.OwnerId == userId).ToListAsync();
                 return Ok(restaurants);
@@ -39,17 +40,17 @@ namespace RestaurantBackend.Controllers
             }
             else
             {
-                return Forbid();
+                return Forbid();//For any other roles (or missing role), access is denied.
             }
         }
 
         [HttpPost]
-        [Authorize(Roles = UserRoles.RestaurantOwner)]
+        [Authorize(Roles = UserRoles.Partner)]
         public IActionResult Create(Restaurant restaurant)
         {
             var ownerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (ownerId == null)
-                return Unauthorized();
+                return Unauthorized();//
 
             restaurant.OwnerId = ownerId;
 
@@ -58,7 +59,7 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = UserRoles.RestaurantOwner)]
+        [Authorize(Roles = UserRoles.Partner)]
         public async Task<IActionResult> UpdateRestaurant(string id, [FromBody] Restaurant UpdatedRestaurant)
         {
             if (UpdatedRestaurant == null || string.IsNullOrEmpty(UpdatedRestaurant.Name))
@@ -83,7 +84,7 @@ namespace RestaurantBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = $"{UserRoles.RestaurantOwner},{UserRoles.Admin}")]
+        [Authorize(Roles = $"{UserRoles.Partner},{UserRoles.Admin}")]
 
         public async Task<IActionResult> DeleteRestaurant(string id)
         {
@@ -110,6 +111,21 @@ namespace RestaurantBackend.Controllers
             return NoContent();
 
         }
+
+
+        [HttpGet("all-except-mine")]
+        [Authorize(Roles = UserRoles.Partner)]
+        public async Task<IActionResult> GetAllExceptMine()
+        {
+            var ownerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var restaurants = await _context.Restaurants
+                .Find(r => r.OwnerId != ownerId)
+                .ToListAsync();
+
+            return Ok(restaurants);
+        }
+
 
     }
 }

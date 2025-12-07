@@ -1,28 +1,32 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System;
+using System.Collections.Generic;
 
 namespace RestaurantBackend.Models
 {
-    public class Order
-    {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+     public class Order
+{
+    [BsonId]
+    [BsonRepresentation(BsonType.ObjectId)]
+    public string? Id { get; set; }      // ✅ Make nullable
 
-        [BsonElement("customerId")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string? CustomerId { get; set; }
+    public string? CustomerName { get; set; }   // ✅ Make nullable
+    public string? ShippingAddress { get; set; } // ⬅ backend creates this
+    public DateTime OrderDate { get; set; }
+    public string? Status { get; set; }          // ⬅ backend creates this
 
-        [BsonElement("restaurantId")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string RestaurantId { get; set; } = null!;
+    public List<OrderItem>? Items { get; set; }  // frontend sends this
 
-        [BsonElement("menuItemIds")]
-        public List<string> MenuItemIds { get; set; } = new List<string>();
+    public decimal TotalPrice { get; set; }
+}
 
-        [BsonElement("totalPrice")]
-        public decimal TotalPrice{ get; set; }
+public class OrderItem
+{
+    public string? ProductName { get; set; }
+    public string? ProductImage { get; set; }
+    public decimal Price { get; set; }
+    public int Quantity { get; set; }
+}
 
-
-    }
 }

@@ -7,15 +7,12 @@ function Register() {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const navigate = useNavigate();
 
-  // handle input change
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { username, email, password } = form;
 
     if (!username || !email || !password) {
@@ -33,7 +30,7 @@ function Register() {
       if (response.status === 200 || response.status === 201) {
         alert("✅ Registration successful!");
         setForm({ username: "", email: "", password: "" });
-        navigate("/login"); // redirect to login after successful registration
+        navigate("/login");
       } else {
         alert("❌ Registration failed. Please try again.");
       }
@@ -50,8 +47,8 @@ function Register() {
   return (
     <div className="register-container">
       <div className="register-card">
-        <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
+        <h2 className="register-title">Create Account</h2>
+        <form onSubmit={handleSubmit} className="register-form">
           <label>Username</label>
           <input
             type="text"
@@ -79,10 +76,10 @@ function Register() {
             placeholder="Enter your password"
           />
 
-          <button type="submit" className="btn">Register</button>
+          <button type="submit" className="btn-register">Register</button>
         </form>
 
-        <button className="back-btn" onClick={() => navigate("/")}>
+        <button className="btn-back" onClick={() => navigate("/")}>
           Back to Home
         </button>
       </div>

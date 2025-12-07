@@ -5,9 +5,10 @@ namespace RestaurantBackend.Models
 {
     public class MenuItem
     {
-        [BsonId]
+        // 👇 Change here: store this as "_id" field explicitly
+        [BsonElement("_id")]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string? Id { get; set; }
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
 
         [BsonElement("name")]
         public string Name { get; set; } = null!;

@@ -34,11 +34,6 @@ namespace RestaurantBackend.Controllers
 
         }
 
-        [HttpGet("restaurants")]
-        public IActionResult GetRestaurants()
-        {
-            var restaurants = _context.Restaurants.Find(r => true).ToList();
-            return Ok(restaurants);
-        }
+        
     }
 }

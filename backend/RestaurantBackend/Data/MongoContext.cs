@@ -24,5 +24,10 @@ namespace RestaurantBackend.Data
         public IMongoCollection<Partner> Partners => _database.GetCollection<Partner>("Partners");
 
         public IMongoCollection<User> Users => _database.GetCollection<User>("Users");
+
+        public IMongoCollection<Cart> Carts => _database.GetCollection<Cart>("Carts");
+
+        public IMongoCollection<Wishlist> Wishlists => _database.GetCollection<Wishlist>("Wishlist");
+
     }
 }

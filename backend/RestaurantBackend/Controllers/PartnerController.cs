@@ -66,7 +66,7 @@ namespace RestaurantBackend.Controllers
                 Name = dto.RestaurantName,
                 Address = dto.Address,
                 Cuisine = dto.Cuisine,
-                OwnerId = partner.Id,
+                OwnerId = user.Id,
                 Menu = new List<MenuItem>()
             };
             _context.Restaurants.InsertOne(restaurant);

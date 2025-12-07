@@ -3,7 +3,9 @@ using MongoDB.Driver;
 using RestaurantBackend.Models;
 using RestaurantBackend.Data;
 using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System;
 
 namespace RestaurantBackend.Controllers
 {
@@ -18,54 +20,63 @@ namespace RestaurantBackend.Controllers
             _context = context;
         }
 
-        [HttpPost]
-        [Authorize(Roles =UserRoles.Customer)]
-        public IActionResult CreateOrder(Order order)
+        // Generate Random Address
+        private string GenerateRandomAddress()
         {
+            string[] streets = { "MG Road", "Park Street", "Brigade Road", "Anna Salai", "Linking Road" };
+            string[] cities = { "Mumbai", "Bangalore", "Chennai", "Delhi", "Kolkata", "Hyderabad" };
 
-            var customerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (customerId == null)
-            {
-                return Unauthorized();
-            }
-
-            order.CustomerId = customerId;
-
-
-
-            if (order.MenuItemIds == null || order.MenuItemIds.Count == 0)
-                return BadRequest("At least one menu item is required.");
-
-            var menuItems = _context.MenuItems.Find(m => m.Id !=null && order.MenuItemIds.Contains(m.Id)).ToList();
-            order.TotalPrice = menuItems.Sum(m => m.Price);
-
-            _context.Orders.InsertOne(order);
-            return Ok(order);
+            Random r = new Random();
+            return $"{r.Next(10,999)}, {streets[r.Next(streets.Length)]}, {cities[r.Next(cities.Length)]}, India";
         }
 
-        [HttpGet("byCustomer")]
-        [Authorize(Roles =UserRoles.Customer)]
-        public IActionResult GetOrdersByCustomer()
+        // Create Order
+        [HttpPost("create")]
+        [Authorize]
+        public async Task<ActionResult<Order>> CreateOrder([FromBody] Order orderRequest)
         {
+            Console.WriteLine("hai");
 
-            var customerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if(customerId == null)
+            
+            if (orderRequest == null || orderRequest.Items == null)
+                return BadRequest("Invalid order");
+
+            var newOrder = new Order
             {
-                return Unauthorized();
-            }
+                CustomerName = orderRequest.CustomerName,
+                Items = orderRequest.Items,
+                TotalPrice = orderRequest.TotalPrice,
+                Status = "Pending",
+                OrderDate = DateTime.Now,
+                ShippingAddress = GenerateRandomAddress()
+            };
 
+            
 
+            await _context.Orders.InsertOneAsync(newOrder);
+            return Ok(newOrder);
+        }
 
-            var orders = _context.Orders.Find(o => o.CustomerId == customerId).ToList();
+        // Get all orders
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<List<Order>>> GetOrders()
+        {
+            var orders = await _context.Orders.Find(_ => true).ToListAsync();
             return Ok(orders);
         }
 
-        [HttpGet("byRestaurant/{restaurantId}")]
-        public IActionResult GetOrdersByRestaurant(string restaurantId)
+        // Cancel Order
+        [HttpDelete("{id}")]
+        [Authorize]
+        public async Task<IActionResult> CancelOrder(string id)
         {
-            var orders = _context.Orders.Find(o => o.RestaurantId == restaurantId).ToList();
-            return Ok(orders);
+            var res = await _context.Orders.DeleteOneAsync(o => o.Id == id);
+
+            if (res.DeletedCount == 0)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }
