@@ -16,8 +16,6 @@ A modern full-stack restaurant platform that allows customers to browse restaura
 ### 🏪 Restaurant Owner Features
 - Manage restaurant profile  
 - Add / edit / delete menu items  
-- Update order status (Pending → Preparing → Out for Delivery → Completed)
- 
 ---
 
 ## 🧰 Tech Stack
